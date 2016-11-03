@@ -1,0 +1,19 @@
+# Directory names to ignore
+.vs/
+bin/
+obj/
+packages/
+Debug/
+Release/
+logs/
+Properties/
+
+# Visual Studio database files
+*.VC.db
+*.VC.opendb
+
+# Eclipse / Java / Spring
+target/
+.settings/
+.classpath
+.project
