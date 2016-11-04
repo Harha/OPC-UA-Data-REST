@@ -1,20 +1,36 @@
 package io.github.harha.rest.model;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Field;
+
 public class OPCUAServer {
 	
-	private int m_id;
-	private String m_endpoint;
+	@Id
+	@Field("id")
+	public String m_id;
 	
-	public OPCUAServer(
-			final int id,
-			final String endpoint
-	) {
-		m_id = id;
-		m_endpoint = endpoint;
+	@Indexed(unique = true)
+	@Field("serverId")
+	public Integer m_serverId;
+	
+	@Field("endpoint")
+	public String m_endpoint;
+	
+	@Override
+	public String toString() {
+		return String.format(
+				"OPCUAServer[id=%s, serverId=%d, endpoint=%s]",
+				m_id, m_serverId, m_endpoint
+		);
 	}
 	
-	public int getId() {
+	public String getId() {
 		return m_id;
+	}
+	
+	public Integer getServerId() {
+		return m_serverId;
 	}
 	
 	public String getEndpoint() {
