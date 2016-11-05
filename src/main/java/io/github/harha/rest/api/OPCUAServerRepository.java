@@ -10,5 +10,7 @@ public interface OPCUAServerRepository extends MongoRepository<OPCUAServer, Stri
 	
 	public OPCUAServer findByServerId(Integer serverId);
 	public List<OPCUAServer> findByEndpoint(String endpoint);
+	public void deleteByServerId(Integer serverId);
+	public void deleteByEndpoint(String endpoint);
 
 }

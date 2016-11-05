@@ -29,7 +29,7 @@ public class OPCUAServerController {
 	private OPCUAServerRepository m_repository;
 	
 	/*
-	 * Returns a list of all servers from the repository.
+	 * Returns a list of servers from the repository.
 	 * @param	endpoint	Query by server endpoint URL.
 	 */
 	@RequestMapping(method = RequestMethod.GET)
@@ -54,19 +54,69 @@ public class OPCUAServerController {
 	
 	/*
 	 * Returns a single server from the repository by serverId.
+	 * @param	serverId	Query by serverId.
 	 */
 	@RequestMapping(method = RequestMethod.GET, value = "{serverId}")
-	public @ResponseBody OPCUAServer getServerByServerId(
+	public @ResponseBody OPCUAServer getServer(
 			@PathVariable Integer serverId
 	) {
-		LOGGER.log(Level.INFO, "getServerByServerId, serverId: {0}", serverId);
+		LOGGER.log(Level.INFO, "getServer, serverId: {0}", serverId);
 		
 		OPCUAServer result = null;
 		
 		try {
 			result = m_repository.findByServerId(serverId);
 		} catch (Exception e) {
-			LOGGER.log(Level.SEVERE, "getServerByServerId, exception while querying the repository.", e);
+			LOGGER.log(Level.SEVERE, "getServer, exception while querying the repository.", e);
+		}
+		
+		return result;
+	}
+	
+	/*
+	 * Delete servers from the repository.
+	 * @param	endpoint	Query by server endpoint URL.
+	 */
+	@RequestMapping(method = RequestMethod.DELETE)
+	public @ResponseBody ResponseEntity<?> deleteServers(
+			@RequestParam(value = "endpoint", required = false) String endpoint
+	) {
+		LOGGER.log(Level.INFO, "deleteServers, endpoint: {0}", endpoint);
+		
+		ResponseEntity<String> result = new ResponseEntity<>(HttpStatus.OK);
+		
+		try {
+			if (endpoint == null)
+				m_repository.deleteAll();
+			else
+				m_repository.deleteByEndpoint(endpoint);
+		} catch (Exception e) {
+			LOGGER.log(Level.SEVERE, "deleteServers, exception while querying the repository.", e);
+			
+			result = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+		return result;
+	}
+	
+	/*
+	 * Delete a single server from the repository by serverId.
+	 * @param	serverId	Query by serverId.
+	 */
+	@RequestMapping(method = RequestMethod.DELETE, value = "{serverId}")
+	public @ResponseBody ResponseEntity<?> deleteServer(
+			@PathVariable Integer serverId
+	) {
+		LOGGER.log(Level.INFO, "deleteServer, serverId: {0}", serverId);
+		
+		ResponseEntity<String> result = new ResponseEntity<>(HttpStatus.OK);
+		
+		try {
+			m_repository.deleteByServerId(serverId);
+		} catch (Exception e) {
+			LOGGER.log(Level.SEVERE, "deleteServer, exception while querying the repository.", e);
+			
+			result = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		
 		return result;
@@ -74,6 +124,7 @@ public class OPCUAServerController {
 	
 	/*
 	 * Inserts a single server into the repository.
+	 * @param	server	Object input instance.
 	 */
 	@RequestMapping(method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded")
 	public @ResponseBody ResponseEntity<?> insertServer(
@@ -95,6 +146,41 @@ public class OPCUAServerController {
 			m_repository.save(server);
 		} catch (Exception e) {
 			LOGGER.log(Level.SEVERE, "insertServer, exception while querying the repository.", e);
+			
+			result = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+		return result;
+	}
+	
+	/*
+	 * Updates a single server in the repository.
+	 * @param	server	Object input instance.
+	 */
+	@RequestMapping(method = RequestMethod.PUT, consumes = "application/x-www-form-urlencoded")
+	public @ResponseBody ResponseEntity<?> updateServer(
+			@ModelAttribute  OPCUAServer server
+	) {
+		LOGGER.log(Level.INFO, "updateServer, server: {0}", server);
+		
+		ResponseEntity<String> result = new ResponseEntity<>(HttpStatus.OK);
+		
+		try {
+			if (server.getServerId() == null || server.getEndpoint() == null) {
+				throw new Exception("Parameter(s) serverId and endpoint must not be null.");
+			}
+			
+			OPCUAServer server_db = null;
+			
+			if ((server_db = m_repository.findByServerId(server.getServerId())) == null) {
+				throw new Exception("Cannot find a server from the database with given serverId.");
+			}
+			
+			server_db.setEndpoint(server.getEndpoint());
+			
+			m_repository.save(server_db);
+		} catch (Exception e) {
+			LOGGER.log(Level.SEVERE, "updateServer, exception while querying the repository.", e);
 			
 			result = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}

@@ -3,62 +3,123 @@ package io.github.harha.rest.model;
 import java.time.LocalDate;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.PersistenceConstructor;
 import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 
+@Document(collection="opc_ua_variable")
 public class OPCUAVariable {
 	
 	@Id
-	@Field("id")
-	public String m_id;
+	public String id;
 	
+	@Indexed(unique = false)
 	@Field("nsIndex")
-	public Integer m_nsIndex;
+	public Integer nsIndex;
 	
+	@Indexed(unique = false)
 	@Field("identifier")
-	public String m_identifier;
+	public String identifier;
 	
+	@Indexed(unique = false)
 	@Field("serverId")
-	public Integer m_serverId;
+	public Integer serverId;
 	
 	@Field("value")
-	public String m_value;
+	public String value;
 	
 	@DateTimeFormat(iso = ISO.DATE)
-	public LocalDate m_timeStamp;
+	@Field("serverTimeStamp")
+	public LocalDate serverTimeStamp;
+	
+	@DateTimeFormat(iso = ISO.DATE)
+	@Field("localTimeStamp")
+	public LocalDate localTimeStamp;
+	
+	@PersistenceConstructor
+	public OPCUAVariable(
+			Integer nsIndex,
+			String identifier,
+			Integer serverId,
+			String value,
+			LocalDate serverTimeStamp
+	) {
+		this.nsIndex = nsIndex;
+		this.identifier = identifier;
+		this.serverId = serverId;
+		this.value = value;
+		this.serverTimeStamp = serverTimeStamp;
+	}
+	
+	public OPCUAVariable() {
+		nsIndex = null;
+		identifier = null;
+		serverId = null;
+		value = null;
+		serverTimeStamp = null;
+	}
 	
 	@Override
 	public String toString() {
 		return String.format(
-				"OPCUAVariable[id=%s, nsIndex=%d, identifier=%s, serverId=%d, value=%s, timeStamp=%s]",
-				m_id, m_nsIndex, m_identifier, m_serverId, m_value, m_timeStamp
+				"OPCUAVariable[id=%s, nsIndex=%d, identifier=%s, serverId=%d, value=%s, serverTimeStamp=%s, localTimeStamp=%s]",
+				id, nsIndex, identifier, serverId, value, serverTimeStamp, localTimeStamp
 		);
 	}
 	
 	public String getId() {
-		return m_id;
+		return id;
 	}
 	
 	public Integer getNsIndex() {
-		return m_nsIndex;
+		return nsIndex;
 	}
 	
 	public String getIdentifier() {
-		return m_identifier;
+		return identifier;
 	}
 	
 	public Integer getServerId() {
-		return m_serverId;
+		return serverId;
 	}
 	
 	public String getValue() {
-		return m_value;
+		return value;
 	}
 	
-	public LocalDate getTimeStamp() {
-		return m_timeStamp;
+	public LocalDate getServerTimeStamp() {
+		return serverTimeStamp;
+	}
+	
+	public LocalDate getLocalTimeStamp() {
+		return localTimeStamp;
+	}
+	
+	public  void setNsIndex(Integer nsIndex) {
+		this.nsIndex = nsIndex;
+	}
+	
+	public void setIdentifier(String identifier) {
+		this.identifier = identifier;
+	}
+	
+	public void setServerId(Integer serverId) {
+		this.serverId = serverId;
+	}
+	
+	public void setValue(String value) {
+		this.value = value;
+	}
+	
+	public void setServerTimeStamp(LocalDate serverTimeStamp) {
+		this.serverTimeStamp = serverTimeStamp;
+	}
+	
+	public void setLocalTimeStamp(LocalDate localTimeStamp) {
+		this.localTimeStamp = localTimeStamp;
 	}
 
 }

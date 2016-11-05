@@ -10,52 +10,52 @@ import org.springframework.data.mongodb.core.mapping.Field;
 public class OPCUAServer {
 	
 	@Id
-	private String m_id;
+	private String id;
 	
 	@Indexed(unique = true)
 	@Field("serverId")
-	private Integer m_serverId;
+	private Integer serverId;
 	
 	@Field("endpoint")
-	private String m_endpoint;
+	private String endpoint;
 	
 	@PersistenceConstructor
 	public OPCUAServer(Integer serverId, String endpoint) {
-		m_serverId = serverId;
-		m_endpoint = endpoint;
+		this.serverId = serverId;
+		this.endpoint = endpoint;
 	}
 	
 	public OPCUAServer() {
-		m_serverId = null;
-		m_endpoint = null;
+		serverId = null;
+		endpoint = null;
 	}
 	
 	@Override
 	public String toString() {
 		return String.format(
 				"OPCUAServer[id=%s, serverId=%d, endpoint=%s]",
-				m_id, m_serverId, m_endpoint
+				id, serverId, endpoint
 		);
 	}
 	
 	public String getId() {
-		return m_id;
+		return id;
 	}
 	
 	public Integer getServerId() {
-		return m_serverId;
+		return serverId;
 	}
 	
 	public String getEndpoint() {
-		return m_endpoint;
+		return endpoint;
 	}
 	
 	public void setServerId(Integer serverId) {
-		m_serverId = serverId;
+		this.serverId = serverId;
 	}
 	
 	public void setEndpoint(String endpoint) {
-		m_endpoint = endpoint;
+		this.endpoint = endpoint;
 	}
 
 }
