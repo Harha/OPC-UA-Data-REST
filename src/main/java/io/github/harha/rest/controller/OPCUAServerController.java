@@ -5,14 +5,11 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -78,17 +75,17 @@ public class OPCUAServerController {
 	/*
 	 * Inserts a single server into the repository.
 	 */
-	@RequestMapping(method = RequestMethod.POST, consumes = "application/json")
+	@RequestMapping(method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded")
 	public @ResponseBody ResponseEntity<?> insertServer(
-			@RequestBody OPCUAServer server
+			@ModelAttribute  OPCUAServer server
 	) {
 		LOGGER.log(Level.INFO, "insertServer, server: {0}", server);
 		
 		ResponseEntity<String> result = new ResponseEntity<>(HttpStatus.OK);
 		
 		try {
-			if (server.getServerId() == null) {
-				throw new Exception("Parameter serverId must not be null.");
+			if (server.getServerId() == null || server.getEndpoint() == null) {
+				throw new Exception("Parameter(s) serverId and endpoint must not be null.");
 			}
 			
 			if (m_repository.findByServerId(server.getServerId()) != null) {
