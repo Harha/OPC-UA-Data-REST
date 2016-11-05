@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	
 	<groupId>io.github.harha</groupId>
-	<artifactId>rest</artifactId>
+	<artifactId>iot_rest</artifactId>
 	<version>0.0.1</version>
 	
 	<parent>
