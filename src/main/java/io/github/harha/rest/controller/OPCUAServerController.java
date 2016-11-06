@@ -8,8 +8,8 @@ import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -126,9 +126,9 @@ public class OPCUAServerController {
 	 * Inserts a single server into the repository.
 	 * @param	server	Object input instance.
 	 */
-	@RequestMapping(method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded")
+	@RequestMapping(method = RequestMethod.POST, consumes = "application/json")
 	public @ResponseBody ResponseEntity<?> insertServer(
-			@ModelAttribute  OPCUAServer server
+			@RequestBody  OPCUAServer server
 	) {
 		LOGGER.log(Level.INFO, "insertServer, server: {0}", server);
 		
@@ -157,9 +157,9 @@ public class OPCUAServerController {
 	 * Updates a single server in the repository.
 	 * @param	server	Object input instance.
 	 */
-	@RequestMapping(method = RequestMethod.PUT, consumes = "application/x-www-form-urlencoded")
+	@RequestMapping(method = RequestMethod.PUT, consumes = "application/json")
 	public @ResponseBody ResponseEntity<?> updateServer(
-			@ModelAttribute  OPCUAServer server
+			@RequestBody  OPCUAServer server
 	) {
 		LOGGER.log(Level.INFO, "updateServer, server: {0}", server);
 		
