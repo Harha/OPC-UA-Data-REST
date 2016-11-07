@@ -44,14 +44,12 @@ public class OPCUAVariable {
 			Integer nsIndex,
 			String identifier,
 			Integer serverId,
-			String value,
-			LocalDate serverTimeStamp
+			String value
 	) {
 		this.nsIndex = nsIndex;
 		this.identifier = identifier;
 		this.serverId = serverId;
 		this.value = value;
-		this.serverTimeStamp = serverTimeStamp;
 	}
 	
 	public OPCUAVariable() {
@@ -59,7 +57,6 @@ public class OPCUAVariable {
 		identifier = null;
 		serverId = null;
 		value = null;
-		serverTimeStamp = null;
 	}
 	
 	@Override
@@ -68,6 +65,13 @@ public class OPCUAVariable {
 				"OPCUAVariable[id=%s, nsIndex=%d, identifier=%s, serverId=%d, value=%s, serverTimeStamp=%s, localTimeStamp=%s]",
 				id, nsIndex, identifier, serverId, value, serverTimeStamp, localTimeStamp
 		);
+	}
+	
+	public boolean containsNull() {
+		return nsIndex == null ||
+			   identifier == null ||
+			   serverId == null ||
+			   value == null;
 	}
 	
 	public String getId() {
