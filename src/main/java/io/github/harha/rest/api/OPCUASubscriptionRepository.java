@@ -8,9 +8,20 @@ import io.github.harha.rest.model.OPCUASubscription;
 
 public interface OPCUASubscriptionRepository extends MongoRepository<OPCUASubscription, String> {
 	
-	public List<OPCUASubscription> findByIdentifier(String identifier);
-	public List<OPCUASubscription> findByNsIndex(Integer nsIndex);
-	public List<OPCUASubscription> findByServerId(Integer serverId);
-	public List<OPCUASubscription> findByServerIdAndIdentifier(Integer serverId, String identifier);
+	List<OPCUASubscription> findByIdentifier(String identifier);
+	List<OPCUASubscription> findByNsIndex(Integer nsIndex);
+	List<OPCUASubscription> findByServerId(Integer serverId);
+	List<OPCUASubscription> findByNsIndexAndIdentifier(Integer nsIndex, String identifier);
+	List<OPCUASubscription> findByServerIdAndNsIndex(Integer serverId, Integer nsIndex);
+	List<OPCUASubscription> findByServerIdAndIdentifier(Integer serverId, String identifier);
+	List<OPCUASubscription> findByServerIdAndNsIndexAndIdentifier(Integer serverId, Integer nsIndex, String identifier);
+
+	void deleteByIdentifier(String identifier);
+	void deleteByNsIndex(Integer nsIndex);
+	void deleteByServerId(Integer serverId);
+	void deleteByNsIndexAndIdentifier(Integer nsIndex, String identifier);
+	void deleteByServerIdAndNsIndex(Integer serverId, Integer nsIndex);
+	void deleteByServerIdAndIdentifier(Integer serverId, String identifier);
+	void deleteByServerIdAndNsIndexAndIdentifier(Integer serverId, Integer nsIndex, String identifier);
 
 }

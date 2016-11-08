@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.github.harha.rest.api.OPCUASubscriptionRepository;
 import io.github.harha.rest.model.OPCUASubscription;
+import io.github.harha.rest.service.api.IOPCUASubscriptionService;
 
 @RestController
 @RequestMapping("/opcuasubscriptions")
@@ -26,10 +26,10 @@ public class OPCUASubscriptionController {
 	private static final Logger LOGGER = Logger.getLogger(OPCUASubscriptionController.class.getName());
 	
 	@Autowired
-	private OPCUASubscriptionRepository m_repository;
+	private IOPCUASubscriptionService m_service;
 	
 	/*
-	 * Returns a list of subscriptions from the repository.
+	 * Returns a list of subscriptions from the database.
 	 * @param	identifier	Query by subscription identifier
 	 * @param	serverId	Query by subscription serverId
 	 */
@@ -39,27 +39,19 @@ public class OPCUASubscriptionController {
 			@RequestParam(value = "serverId", required = false) Integer serverId
 	) {
 		LOGGER.log(Level.INFO, "getSubscriptions, identifier: {0}, serverId: " + serverId, identifier);
-		
 		List<OPCUASubscription> results = new ArrayList<>();
 		
 		try {
-			if (identifier == null && serverId == null)
-				results = m_repository.findAll();
-			else if (identifier != null && serverId == null)
-				results = m_repository.findByIdentifier(identifier);
-			else if (identifier == null && serverId != null)
-				results = m_repository.findByServerId(serverId);
-			else
-				results = m_repository.findByServerIdAndIdentifier(serverId, identifier);
+			results = m_service.getSubscriptions(null, identifier, serverId);
 		} catch (Exception e) {
-			LOGGER.log(Level.SEVERE, "getSubscriptions, exception while querying the repository.", e);
+			LOGGER.log(Level.SEVERE, "getSubscriptions, exception while querying the service.", e);
 		}
 		
 		return results;
 	}
 	
 	/*
-	 * Returns a list of subscriptions from the repository.
+	 * Returns a list of subscriptions from the database.
 	 * @param	nsIndex	Query by subscription nsIndex
 	 */
 	@RequestMapping(method = RequestMethod.GET, value = "{nsIndex}")
@@ -67,32 +59,29 @@ public class OPCUASubscriptionController {
 			@PathVariable Integer nsIndex
 	) {
 		LOGGER.log(Level.INFO, "getSubscriptions, nsIndex: {0}", nsIndex);
-		
 		List<OPCUASubscription> results = new ArrayList<>();
 		
 		try {
-			results = m_repository.findByNsIndex(nsIndex);
+			results = m_service.getSubscriptions(nsIndex, null, null);
 		} catch (Exception e) {
-			LOGGER.log(Level.SEVERE, "getSubscriptions, exception while querying the repository.", e);
+			LOGGER.log(Level.SEVERE, "getSubscriptions, exception while querying the service.", e);
 		}
 		
 		return results;
 	}
 	
 	/*
-	 * Delete subscriptions from the repository.
+	 * Delete subscriptions from the database.
 	 */
 	@RequestMapping(method = RequestMethod.DELETE)
 	public @ResponseBody ResponseEntity<?> deleteSubscriptions() {
 		LOGGER.log(Level.INFO, "deleteSubscriptions");
-		
 		ResponseEntity<String> result = new ResponseEntity<>(HttpStatus.OK);
 		
 		try {
-			m_repository.deleteAll();
+			m_service.deleteSubscriptions(null, null, null);
 		} catch (Exception e) {
-			LOGGER.log(Level.SEVERE, "deleteSubscriptions, exception while querying the repository.", e);
-			
+			LOGGER.log(Level.SEVERE, "deleteSubscriptions, exception while querying the service.", e);
 			result = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		
@@ -100,7 +89,7 @@ public class OPCUASubscriptionController {
 	}
 	
 	/*
-	 * Inserts a single subscription into the repository.
+	 * Inserts a single subscription into the database.
 	 * @param	variable	Object input instance.
 	 */
 	@RequestMapping(method = RequestMethod.POST, consumes = "application/json")
@@ -108,18 +97,12 @@ public class OPCUASubscriptionController {
 			@RequestBody  OPCUASubscription subscription
 	) {
 		LOGGER.log(Level.INFO, "insertSubscription, server: {0}", subscription);
-		
 		ResponseEntity<String> result = new ResponseEntity<>(HttpStatus.OK);
 		
 		try {
-			if (subscription.containsNull()) {
-				throw new Exception("Some mandatory input parameter(s) were null.");
-			}
-			
-			m_repository.save(subscription);
+			m_service.insertSubscription(subscription);
 		} catch (Exception e) {
-			LOGGER.log(Level.SEVERE, "insertSubscription, exception while querying the repository.", e);
-			
+			LOGGER.log(Level.SEVERE, "insertSubscription, exception while querying the service.", e);
 			result = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		

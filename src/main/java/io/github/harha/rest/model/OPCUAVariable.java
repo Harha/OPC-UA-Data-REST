@@ -10,8 +10,6 @@ import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 @Document(collection="opc_ua_variable")
 public class OPCUAVariable {
 	

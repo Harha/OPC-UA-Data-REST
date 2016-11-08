@@ -38,6 +38,10 @@ public class OPCUAServer {
 		);
 	}
 	
+	public boolean containsNull() {
+		return serverId == null || endpoint == null;
+	}
+	
 	public String getId() {
 		return id;
 	}

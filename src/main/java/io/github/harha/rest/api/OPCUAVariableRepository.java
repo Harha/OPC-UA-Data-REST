@@ -1,5 +1,6 @@
 package io.github.harha.rest.api;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -8,11 +9,8 @@ import io.github.harha.rest.model.OPCUAVariable;
 
 public interface OPCUAVariableRepository extends MongoRepository<OPCUAVariable, String> {
 
-	public List<OPCUAVariable> findByIdentifier(String identifier);
-	public List<OPCUAVariable> findByNsIndex(Integer nsIndex);
-	public List<OPCUAVariable> findByServerId(Integer serverId);
-	public List<OPCUAVariable> findByIdentifierAndNsIndex(String identifier, Integer nsIndex);
-	public List<OPCUAVariable> findByServerIdAndIdentifierAndNsIndex(Integer serverId, String identifier, Integer nsIndex);
-	public List<OPCUAVariable> findByServerIdAndNsIndex(Integer serverId, Integer nsIndex);
+	List<OPCUAVariable> findByIdentifierAndServerTimeStampGreaterThan(String identifier, Date serverTimeStamp);
+	List<OPCUAVariable> findByNsIndexAndServerTimeStampGreaterThan(Integer nsIndex, Date serverTimeStamp);
+	List<OPCUAVariable> findByServerIdAndServerTimeStampGreaterThan(Integer serverId, Date serverTimeStamp);
 	
 }

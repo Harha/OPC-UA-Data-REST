@@ -8,9 +8,11 @@ import io.github.harha.rest.model.OPCUAServer;
 
 public interface OPCUAServerRepository extends MongoRepository<OPCUAServer, String> {
 	
-	public OPCUAServer findByServerId(Integer serverId);
-	public List<OPCUAServer> findByEndpoint(String endpoint);
-	public void deleteByServerId(Integer serverId);
-	public void deleteByEndpoint(String endpoint);
+	List<OPCUAServer> findByServerId(Integer serverId);
+	List<OPCUAServer> findByEndpoint(String endpoint);
+	List<OPCUAServer> findByServerIdAndEndpoint(Integer serverId, String endpoint);
+	void deleteByServerId(Integer serverId);
+	void deleteByEndpoint(String endpoint);
+	void deleteByServerIdAndEndpoint(Integer serverId, String endpoint);
 
 }
