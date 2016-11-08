@@ -30,7 +30,7 @@ public class OPCUAServerController {
 	
 	/*
 	 * Returns a list of servers from the database.
-	 * @param	endpoint	Query by server endpoint URL.
+	 * @param	endpoint	Query by server endpoint URL
 	 */
 	@RequestMapping(method = RequestMethod.GET)
 	public @ResponseBody List<OPCUAServer> getServers(
@@ -50,7 +50,7 @@ public class OPCUAServerController {
 	
 	/*
 	 * Returns a list of servers from the database.
-	 * @param	serverId	Query by serverId.
+	 * @param	serverId	Query by serverId
 	 */
 	@RequestMapping(method = RequestMethod.GET, value = "{serverId}")
 	public @ResponseBody List<OPCUAServer> getServers(
@@ -70,7 +70,7 @@ public class OPCUAServerController {
 	
 	/*
 	 * Delete servers from the database.
-	 * @param	endpoint	Query by server endpoint URL.
+	 * @param	endpoint	Query by server endpoint URL
 	 */
 	@RequestMapping(method = RequestMethod.DELETE)
 	public @ResponseBody ResponseEntity<?> deleteServers(
@@ -91,7 +91,7 @@ public class OPCUAServerController {
 	
 	/*
 	 * Delete servers from the database.
-	 * @param	serverId	Query by serverId.
+	 * @param	serverId	Query by serverId
 	 */
 	@RequestMapping(method = RequestMethod.DELETE, value = "{serverId}")
 	public @ResponseBody ResponseEntity<?> deleteServers(
@@ -112,7 +112,7 @@ public class OPCUAServerController {
 	
 	/*
 	 * Inserts a single server into the database.
-	 * @param	server	Object input instance.
+	 * @param	server	Object input instance
 	 */
 	@RequestMapping(method = RequestMethod.POST, consumes = "application/json")
 	public @ResponseBody ResponseEntity<?> insertServer(
@@ -133,7 +133,7 @@ public class OPCUAServerController {
 	
 	/*
 	 * Updates a single server in the database.
-	 * @param	server	Object input instance.
+	 * @param	server	Object input instance
 	 */
 	@RequestMapping(method = RequestMethod.PUT, consumes = "application/json")
 	public @ResponseBody ResponseEntity<?> updateServer(

@@ -90,7 +90,7 @@ public class OPCUASubscriptionController {
 	
 	/*
 	 * Inserts a single subscription into the database.
-	 * @param	variable	Object input instance.
+	 * @param	variable	Object input instance
 	 */
 	@RequestMapping(method = RequestMethod.POST, consumes = "application/json")
 	public @ResponseBody ResponseEntity<?> insertSubscription(
