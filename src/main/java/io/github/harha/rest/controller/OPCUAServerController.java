@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +21,7 @@ import io.github.harha.rest.model.OPCUAServer;
 import io.github.harha.rest.service.api.IOPCUAServerService;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/opcuaservers")
 public class OPCUAServerController {
 	
@@ -52,6 +54,7 @@ public class OPCUAServerController {
 	 * Returns a list of servers from the database.
 	 * @param	serverId	Query by serverId
 	 */
+	@CrossOrigin
 	@RequestMapping(method = RequestMethod.GET, value = "{serverId}")
 	public @ResponseBody List<OPCUAServer> getServers(
 			@PathVariable Integer serverId

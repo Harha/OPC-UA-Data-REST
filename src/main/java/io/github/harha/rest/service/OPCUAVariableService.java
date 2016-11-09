@@ -1,8 +1,8 @@
 package io.github.harha.rest.service;
 
-import java.util.Date;
 import java.util.List;
 
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +17,7 @@ public class OPCUAVariableService implements IOPCUAVariableService {
 	private OPCUAVariableRepository m_repository;
 	
 	@Override
-	public List<OPCUAVariable> getVariables(Integer nsIndex, String identifier, Integer serverId, Date serverTimeStamp) throws Exception {
+	public List<OPCUAVariable> getVariables(Integer nsIndex, String identifier, Integer serverId, DateTime serverTimeStamp) throws Exception {
 		
 		if (nsIndex != null && serverTimeStamp != null)
 			return m_repository.findByNsIndexAndServerTimeStampGreaterThan(nsIndex, serverTimeStamp);

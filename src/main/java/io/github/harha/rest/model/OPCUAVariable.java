@@ -1,7 +1,6 @@
 package io.github.harha.rest.model;
 
-import java.util.Date;
-
+import org.joda.time.DateTime;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.PersistenceConstructor;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -33,11 +32,11 @@ public class OPCUAVariable {
 	
 	@DateTimeFormat(iso = ISO.DATE_TIME)
 	@Field("serverTimeStamp")
-	public Date serverTimeStamp;
+	public DateTime serverTimeStamp;
 	
 	@DateTimeFormat(iso = ISO.DATE_TIME)
 	@Field("localTimeStamp")
-	public Date localTimeStamp;
+	public DateTime localTimeStamp;
 	
 	@PersistenceConstructor
 	public OPCUAVariable(
@@ -45,14 +44,14 @@ public class OPCUAVariable {
 			Integer nsIndex,
 			Integer serverId,
 			String value,
-			Date serverTimeStamp
+			DateTime serverTimeStamp
 	) {
 		this.identifier = identifier;
 		this.nsIndex = nsIndex;
 		this.serverId = serverId;
 		this.value = value;
 		this.serverTimeStamp = serverTimeStamp;
-		this.localTimeStamp = new Date();
+		this.localTimeStamp = new DateTime();
 	}
 	
 	public OPCUAVariable() {
@@ -61,7 +60,7 @@ public class OPCUAVariable {
 		serverId = null;
 		value = null;
 		serverTimeStamp = null;
-		localTimeStamp = new Date();
+		localTimeStamp = new DateTime();
 	}
 	
 	@Override
@@ -101,11 +100,11 @@ public class OPCUAVariable {
 		return value;
 	}
 	
-	public Date getServerTimeStamp() {
+	public DateTime getServerTimeStamp() {
 		return serverTimeStamp;
 	}
 	
-	public Date getLocalTimeStamp() {
+	public DateTime getLocalTimeStamp() {
 		return localTimeStamp;
 	}
 	
@@ -125,11 +124,11 @@ public class OPCUAVariable {
 		this.value = value;
 	}
 	
-	public void setServerTimeStamp(Date serverTimeStamp) {
+	public void setServerTimeStamp(@DateTimeFormat(iso = ISO.DATE_TIME) DateTime serverTimeStamp) {
 		this.serverTimeStamp = serverTimeStamp;
 	}
 	
-	public void setLocalTimeStamp(Date localTimeStamp) {
+	public void setLocalTimeStamp(@DateTimeFormat(iso = ISO.DATE_TIME) DateTime localTimeStamp) {
 		this.localTimeStamp = localTimeStamp;
 	}
 

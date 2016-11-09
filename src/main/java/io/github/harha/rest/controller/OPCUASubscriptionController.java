@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +21,7 @@ import io.github.harha.rest.model.OPCUASubscription;
 import io.github.harha.rest.service.api.IOPCUASubscriptionService;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/opcuasubscriptions")
 public class OPCUASubscriptionController {
 	

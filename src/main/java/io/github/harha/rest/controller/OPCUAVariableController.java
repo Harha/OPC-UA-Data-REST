@@ -1,16 +1,17 @@
 package io.github.harha.rest.controller;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +24,7 @@ import io.github.harha.rest.model.OPCUAVariable;
 import io.github.harha.rest.service.api.IOPCUAVariableService;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/opcuavariables")
 public class OPCUAVariableController {
 	
@@ -41,7 +43,7 @@ public class OPCUAVariableController {
 	public @ResponseBody List<OPCUAVariable> getVariables(
 			@RequestParam(value = "identifier", required = false) String identifier,
 			@RequestParam(value = "serverId", required = false) Integer serverId,
-			@RequestParam(value = "serverTimeStamp", required = false) @DateTimeFormat(iso = ISO.DATE_TIME) Date serverTimeStamp
+			@RequestParam(value = "serverTimeStamp", required = false) @DateTimeFormat(iso = ISO.DATE_TIME) DateTime serverTimeStamp
 	) {
 		LOGGER.log(Level.INFO, "getVariables, identifier: {0}, serverId: " + serverId + ", serverTimeStamp: " + serverTimeStamp, identifier);
 		List<OPCUAVariable> results = new ArrayList<>();
@@ -63,7 +65,7 @@ public class OPCUAVariableController {
 	@RequestMapping(method = RequestMethod.GET, value = "{nsIndex}")
 	public @ResponseBody List<OPCUAVariable> getVariables(
 			@PathVariable Integer nsIndex,
-			@RequestParam(value = "serverTimeStamp", required = false) @DateTimeFormat(iso = ISO.DATE_TIME) Date serverTimeStamp
+			@RequestParam(value = "serverTimeStamp", required = false) @DateTimeFormat(iso = ISO.DATE_TIME) DateTime serverTimeStamp
 	) {
 		LOGGER.log(Level.INFO, "getVariables, nsIndex: {0}, serverTimeStamp: " + serverTimeStamp, nsIndex);
 		List<OPCUAVariable> results = new ArrayList<>();
@@ -83,7 +85,7 @@ public class OPCUAVariableController {
 	 */
 	@RequestMapping(method = RequestMethod.POST, consumes = "application/json")
 	public @ResponseBody ResponseEntity<?> insertVariable(
-			@RequestBody  OPCUAVariable variable
+			@RequestBody OPCUAVariable variable
 	) {
 		LOGGER.log(Level.INFO, "insertVariable, server: {0}", variable);
 		ResponseEntity<String> result = new ResponseEntity<>(HttpStatus.OK);
