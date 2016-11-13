@@ -9,8 +9,8 @@ import io.github.harha.rest.model.OPCUAVariable;
 
 public interface OPCUAVariableRepository extends MongoRepository<OPCUAVariable, String> {
 
-	List<OPCUAVariable> findByIdentifierAndServerTimeStampGreaterThan(String identifier, DateTime serverTimeStamp);
-	List<OPCUAVariable> findByNsIndexAndServerTimeStampGreaterThan(Integer nsIndex, DateTime serverTimeStamp);
-	List<OPCUAVariable> findByServerIdAndServerTimeStampGreaterThan(Integer serverId, DateTime serverTimeStamp);
+	List<OPCUAVariable> findByIdentifierAndServerTimeStampBetween(String identifier, DateTime from, DateTime to);
+	List<OPCUAVariable> findByNsIndexAndServerTimeStampBetween(Integer nsIndex, DateTime from, DateTime to);
+	List<OPCUAVariable> findByServerIdAndServerTimeStampBetween(Integer serverId, DateTime from, DateTime to);
 	
 }

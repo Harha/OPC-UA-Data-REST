@@ -60,11 +60,13 @@ public class OPCUAServerService implements IOPCUAServerService {
 		if (server.containsNull())
 			throw new Exception("Input server object is not allowed to contain NULL values.");
 		
+		List<OPCUAServer> servers_db = null;
 		OPCUAServer server_db = null;
 		
-		if ((server_db = m_repository.findByServerId(server.getServerId()).get(0)) == null)
+		if ((servers_db = m_repository.findByServerId(server.getServerId())) == null)
 			throw new Exception("Cannot find a server from the database with given serverId.");
 		
+		server_db = servers_db.get(0);
 		server_db.setEndpoint(server.getEndpoint());
 		m_repository.save(server_db);
 		

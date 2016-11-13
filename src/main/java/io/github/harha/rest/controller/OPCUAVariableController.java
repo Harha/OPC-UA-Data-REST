@@ -43,13 +43,14 @@ public class OPCUAVariableController {
 	public @ResponseBody List<OPCUAVariable> getVariables(
 			@RequestParam(value = "identifier", required = false) String identifier,
 			@RequestParam(value = "serverId", required = false) Integer serverId,
-			@RequestParam(value = "serverTimeStamp", required = false) @DateTimeFormat(iso = ISO.DATE_TIME) DateTime serverTimeStamp
+			@RequestParam(value = "serverTimeStampFrom", required = false) @DateTimeFormat(iso = ISO.DATE_TIME) DateTime serverTimeStampFrom,
+			@RequestParam(value = "serverTimeStampTo", required = false) @DateTimeFormat(iso = ISO.DATE_TIME) DateTime serverTimeStampTo
 	) {
-		LOGGER.log(Level.INFO, "getVariables, identifier: {0}, serverId: " + serverId + ", serverTimeStamp: " + serverTimeStamp, identifier);
+		LOGGER.log(Level.INFO, "getVariables, identifier: {0}, serverId: " + serverId + ", serverTimeStamp: " + serverTimeStampFrom, identifier);
 		List<OPCUAVariable> results = new ArrayList<>();
 		
 		try {
-			results = m_service.getVariables(null, identifier, serverId, serverTimeStamp);
+			results = m_service.getVariables(null, identifier, serverId, serverTimeStampFrom, serverTimeStampTo);
 		} catch (Exception e) {
 			LOGGER.log(Level.SEVERE, "getVariables, exception while querying the service.", e);
 		}
@@ -65,13 +66,14 @@ public class OPCUAVariableController {
 	@RequestMapping(method = RequestMethod.GET, value = "{nsIndex}")
 	public @ResponseBody List<OPCUAVariable> getVariables(
 			@PathVariable Integer nsIndex,
-			@RequestParam(value = "serverTimeStamp", required = false) @DateTimeFormat(iso = ISO.DATE_TIME) DateTime serverTimeStamp
+			@RequestParam(value = "serverTimeStampFrom", required = false) @DateTimeFormat(iso = ISO.DATE_TIME) DateTime serverTimeStampFrom,
+			@RequestParam(value = "serverTimeStampTo", required = false) @DateTimeFormat(iso = ISO.DATE_TIME) DateTime serverTimeStampTo
 	) {
-		LOGGER.log(Level.INFO, "getVariables, nsIndex: {0}, serverTimeStamp: " + serverTimeStamp, nsIndex);
+		LOGGER.log(Level.INFO, "getVariables, nsIndex: {0}, serverTimeStamp: " + serverTimeStampFrom, nsIndex);
 		List<OPCUAVariable> results = new ArrayList<>();
 		
 		try {
-			results = m_service.getVariables(nsIndex, null, null, serverTimeStamp);
+			results = m_service.getVariables(nsIndex, null, null, serverTimeStampFrom, serverTimeStampTo);
 		} catch (Exception e) {
 			LOGGER.log(Level.SEVERE, "getVariables, exception while querying the service.", e);
 		}

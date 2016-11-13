@@ -67,6 +67,9 @@ public class OPCUASubscriptionService implements IOPCUASubscriptionService {
 		if (subscription.containsNull())
 			throw new Exception("Input subscription object is not allowed to contain NULL values.");
 		
+		if (m_repository.findByServerIdAndNsIndexAndIdentifier(subscription.getServerId(), subscription.getNsIndex(), subscription.getIdentifier()).size() > 0)
+			throw new Exception("Subscription objects are unique, insert failed.");
+		
 		m_repository.save(subscription);
 		
 	}

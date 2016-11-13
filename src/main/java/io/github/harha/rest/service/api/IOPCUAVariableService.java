@@ -8,7 +8,7 @@ import io.github.harha.rest.model.OPCUAVariable;
 
 public interface IOPCUAVariableService {
 	
-	List<OPCUAVariable> getVariables(Integer nsIndex, String identifier, Integer serverId, DateTime serverTimeStamp) throws Exception;
+	List<OPCUAVariable> getVariables(Integer nsIndex, String identifier, Integer serverId, DateTime serverTimeStampFrom, DateTime serverTimeStampTo) throws Exception;
 	void insertVariable(OPCUAVariable variable) throws Exception;
 
 }

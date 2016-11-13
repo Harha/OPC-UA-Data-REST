@@ -17,16 +17,16 @@ public class OPCUAVariableService implements IOPCUAVariableService {
 	private OPCUAVariableRepository m_repository;
 	
 	@Override
-	public List<OPCUAVariable> getVariables(Integer nsIndex, String identifier, Integer serverId, DateTime serverTimeStamp) throws Exception {
+	public List<OPCUAVariable> getVariables(Integer nsIndex, String identifier, Integer serverId, DateTime serverTimeStampFrom, DateTime serverTimeStampTo) throws Exception {
 		
-		if (nsIndex != null && serverTimeStamp != null)
-			return m_repository.findByNsIndexAndServerTimeStampGreaterThan(nsIndex, serverTimeStamp);
+		if (nsIndex != null && serverTimeStampFrom != null && serverTimeStampTo != null)
+			return m_repository.findByNsIndexAndServerTimeStampBetween(nsIndex, serverTimeStampFrom, serverTimeStampTo);
 	
-		if (identifier != null && serverTimeStamp != null)
-			return m_repository.findByIdentifierAndServerTimeStampGreaterThan(identifier, serverTimeStamp);
+		if (identifier != null && serverTimeStampFrom != null && serverTimeStampTo != null)
+			return m_repository.findByIdentifierAndServerTimeStampBetween(identifier, serverTimeStampFrom, serverTimeStampTo);
 		
-		if (serverId != null && serverTimeStamp != null)
-			return m_repository.findByServerIdAndServerTimeStampGreaterThan(serverId, serverTimeStamp);
+		if (serverId != null && serverTimeStampFrom != null && serverTimeStampTo != null)
+			return m_repository.findByServerIdAndServerTimeStampBetween(serverId, serverTimeStampFrom, serverTimeStampTo);
 		
 		throw new Exception("The request must contain a datetime parameter.");
 	
