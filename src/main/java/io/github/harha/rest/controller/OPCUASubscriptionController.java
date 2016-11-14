@@ -58,13 +58,15 @@ public class OPCUASubscriptionController {
 	 */
 	@RequestMapping(method = RequestMethod.GET, value = "{nsIndex}")
 	public @ResponseBody List<OPCUASubscription> getSubscriptions(
-			@PathVariable Integer nsIndex
+			@PathVariable Integer nsIndex,
+			@RequestParam(value = "identifier", required = false) String identifier,
+			@RequestParam(value = "serverId", required = false) Integer serverId
 	) {
-		LOGGER.log(Level.INFO, "getSubscriptions, nsIndex: {0}", nsIndex);
+		LOGGER.log(Level.INFO, "getSubscriptions, nsIndex: {0}, identifier: " + identifier + ", serverId: " + serverId, nsIndex);
 		List<OPCUASubscription> results = new ArrayList<>();
 		
 		try {
-			results = m_service.getSubscriptions(nsIndex, null, null);
+			results = m_service.getSubscriptions(nsIndex, identifier, serverId);
 		} catch (Exception e) {
 			LOGGER.log(Level.SEVERE, "getSubscriptions, exception while querying the service.", e);
 		}
@@ -105,6 +107,27 @@ public class OPCUASubscriptionController {
 			m_service.insertSubscription(subscription);
 		} catch (Exception e) {
 			LOGGER.log(Level.SEVERE, "insertSubscription, exception while querying the service.", e);
+			result = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+		return result;
+	}
+	
+	/*
+	 * Updates a single subscription in the database.
+	 * @param	variable	Object input instance
+	 */
+	@RequestMapping(method = RequestMethod.PUT, consumes = "application/json")
+	public @ResponseBody ResponseEntity<?> updateSubscription(
+			@RequestBody  OPCUASubscription subscription
+	) {
+		LOGGER.log(Level.INFO, "updateSubscription, server: {0}", subscription);
+		ResponseEntity<String> result = new ResponseEntity<>(HttpStatus.OK);
+		
+		try {
+			m_service.updateSubscription(subscription);
+		} catch (Exception e) {
+			LOGGER.log(Level.SEVERE, "updateSubscription, exception while querying the service.", e);
 			result = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		
