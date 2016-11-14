@@ -24,6 +24,10 @@ public class OPCUAVariable {
 	public Integer nsIndex;
 	
 	@Indexed(unique = false)
+	@Field("type")
+	public String type;
+	
+	@Indexed(unique = false)
 	@Field("serverId")
 	public Integer serverId;
 	
@@ -42,12 +46,14 @@ public class OPCUAVariable {
 	public OPCUAVariable(
 			String identifier,
 			Integer nsIndex,
+			String type,
 			Integer serverId,
 			String value,
 			DateTime serverTimeStamp
 	) {
 		this.identifier = identifier;
 		this.nsIndex = nsIndex;
+		this.type = type;
 		this.serverId = serverId;
 		this.value = value;
 		this.serverTimeStamp = serverTimeStamp;
@@ -57,6 +63,7 @@ public class OPCUAVariable {
 	public OPCUAVariable() {
 		identifier = null;
 		nsIndex = null;
+		type = null;
 		serverId = null;
 		value = null;
 		serverTimeStamp = null;
@@ -66,14 +73,15 @@ public class OPCUAVariable {
 	@Override
 	public String toString() {
 		return String.format(
-				"OPCUAVariable[id=%s, identifier=%s, nsIndex=%d, serverId=%d, value=%s, serverTimeStamp=%s, localTimeStamp=%s]",
-				id, identifier, nsIndex, serverId, value, serverTimeStamp, localTimeStamp
+				"OPCUAVariable[id=%s, identifier=%s, nsIndex=%d, type=%s, serverId=%d, value=%s, serverTimeStamp=%s, localTimeStamp=%s]",
+				id, identifier, nsIndex, type, serverId, value, serverTimeStamp, localTimeStamp
 		);
 	}
 	
 	public boolean containsNull() {
 		return identifier == null ||
 			   nsIndex == null ||
+			   type == null ||
 			   serverId == null ||
 			   value == null ||
 			   serverTimeStamp == null ||
@@ -90,6 +98,10 @@ public class OPCUAVariable {
 	
 	public Integer getNsIndex() {
 		return nsIndex;
+	}
+	
+	public String getType() {
+		return type;
 	}
 	
 	public Integer getServerId() {
@@ -114,6 +126,10 @@ public class OPCUAVariable {
 	
 	public  void setNsIndex(Integer nsIndex) {
 		this.nsIndex = nsIndex;
+	}
+	
+	public void setType(String type) {
+		this.type = type;
 	}
 	
 	public void setServerId(Integer serverId) {

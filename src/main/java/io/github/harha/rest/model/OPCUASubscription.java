@@ -21,6 +21,10 @@ public class OPCUASubscription {
 	public Integer nsIndex;
 	
 	@Indexed(unique = false)
+	@Field("type")
+	public String type;
+	
+	@Indexed(unique = false)
 	@Field("serverId")
 	public Integer serverId;
 	
@@ -28,30 +32,34 @@ public class OPCUASubscription {
 	public OPCUASubscription(
 			String identifier,
 			Integer nsIndex,
+			String type,
 			Integer serverId
 	) {
 		this.identifier = identifier;
 		this.nsIndex = nsIndex;
+		this.type = type;
 		this.serverId = serverId;
 	}
 	
 	public OPCUASubscription() {
 		identifier = null;
 		nsIndex = null;
+		type = null;
 		serverId = null;
 	}
 	
 	@Override
 	public String toString() {
 		return String.format(
-				"OPCUASubscription[id=%s, identifier=%s, nsIndex=%d, serverId=%d]",
-				id, identifier, nsIndex, serverId
+				"OPCUASubscription[id=%s, identifier=%s, nsIndex=%d, type=%s, serverId=%d]",
+				id, identifier, nsIndex, type, serverId
 		);
 	}
 	
 	public boolean containsNull() {
 		return identifier == null ||
 			   nsIndex == null ||
+			   type == null ||
 			   serverId == null;
 	}
 	
@@ -67,6 +75,10 @@ public class OPCUASubscription {
 		return nsIndex;
 	}
 	
+	public String getType() {
+		return type;
+	}
+	
 	public Integer getServerId() {
 		return serverId;
 	}
@@ -77,6 +89,10 @@ public class OPCUASubscription {
 	
 	public  void setNsIndex(Integer nsIndex) {
 		this.nsIndex = nsIndex;
+	}
+	
+	public void setType(String type) {
+		this.type = type;
 	}
 	
 	public void setServerId(Integer serverId) {
