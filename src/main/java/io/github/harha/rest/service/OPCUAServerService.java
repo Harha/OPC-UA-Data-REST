@@ -68,6 +68,7 @@ public class OPCUAServerService implements IOPCUAServerService {
 		
 		server_db = servers_db.get(0);
 		server_db.setEndpoint(server.getEndpoint());
+		server_db.setIdentifier(server.getIdentifier());
 		m_repository.save(server_db);
 		
 	}

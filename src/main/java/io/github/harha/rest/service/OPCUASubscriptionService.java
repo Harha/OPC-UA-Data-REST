@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import io.github.harha.rest.api.OPCUASubscriptionRepository;
-import io.github.harha.rest.model.OPCUAServer;
 import io.github.harha.rest.model.OPCUASubscription;
 import io.github.harha.rest.service.api.IOPCUASubscriptionService;
 
