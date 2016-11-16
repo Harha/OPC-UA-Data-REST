@@ -35,9 +35,10 @@ public class OPCUAVariableController {
 	
 	/*
 	 * Returns a list of variables from the database.
-	 * @param	identifier	Query by subscription identifier
-	 * @param	serverId	Query by subscription serverId
-	 * @param	serverTimeStamp	Query by variable serverTimeStamp
+	 * @param	identifier			Query by subscription identifier
+	 * @param	serverId			Query by subscription serverId
+	 * @param	serverTimeStampFrom	Query by variable serverTimeStamp starting
+	 * @param	serverTimeStampTo	Query by variable serverTimeStamp ending
 	 */
 	@RequestMapping(method = RequestMethod.GET)
 	public @ResponseBody List<OPCUAVariable> getVariables(
@@ -61,7 +62,8 @@ public class OPCUAVariableController {
 	/*
 	 * Returns a list of variables from the database.
 	 * @param	nsIndex	Query by subscription nsIndex
-	 * @param	serverTimeStamp	Query by variable serverTimeStamp
+	 * @param	serverTimeStampFrom	Query by variable serverTimeStamp starting
+	 * @param	serverTimeStampTo	Query by variable serverTimeStamp ending
 	 */
 	@RequestMapping(method = RequestMethod.GET, value = "{nsIndex}")
 	public @ResponseBody List<OPCUAVariable> getVariables(
