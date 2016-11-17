@@ -18,6 +18,7 @@ public class OPCUASubscriptionService implements IOPCUASubscriptionService {
 	@Override
 	public List<OPCUASubscription> getSubscriptions(Integer nsIndex, String identifier, Integer serverId) throws Exception {
 		
+		// TODO: This is bad. Figure out a better way to do this...
 		if (nsIndex == null && identifier == null && serverId == null) {
 			return m_repository.findAll();
 		} else if (nsIndex != null && identifier == null && serverId == null) {
@@ -41,6 +42,7 @@ public class OPCUASubscriptionService implements IOPCUASubscriptionService {
 	@Override
 	public void deleteSubscriptions(Integer nsIndex, String identifier, Integer serverId) throws Exception {
 		
+		// TODO: This is bad. Figure out a better way to do this...
 		if (nsIndex == null && identifier == null && serverId == null) {
 			m_repository.deleteAll();
 		} else if (nsIndex != null && identifier == null && serverId == null) {

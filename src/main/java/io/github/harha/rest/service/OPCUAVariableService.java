@@ -19,6 +19,7 @@ public class OPCUAVariableService implements IOPCUAVariableService {
 	@Override
 	public List<OPCUAVariable> getVariables(Integer nsIndex, String identifier, Integer serverId, DateTime serverTimeStampFrom, DateTime serverTimeStampTo) throws Exception {
 		
+		// TODO: This is bad. Figure out a better way to do this...
 		if (nsIndex != null && serverTimeStampFrom != null && serverTimeStampTo != null)
 			return m_repository.findByNsIndexAndServerTimeStampBetween(nsIndex, serverTimeStampFrom, serverTimeStampTo);
 	

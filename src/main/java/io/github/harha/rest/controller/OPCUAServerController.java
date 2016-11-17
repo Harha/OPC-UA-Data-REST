@@ -57,13 +57,14 @@ public class OPCUAServerController {
 	@CrossOrigin
 	@RequestMapping(method = RequestMethod.GET, value = "{serverId}")
 	public @ResponseBody List<OPCUAServer> getServers(
-			@PathVariable Integer serverId
+			@PathVariable Integer serverId,
+			@RequestParam(value = "endpoint", required = false) String endpoint
 	) {
-		LOGGER.log(Level.INFO, "getServers, serverId: {0}", serverId);
+		LOGGER.log(Level.INFO, "getServers, serverId: {0}, endpoint: " + endpoint, serverId);
 		List<OPCUAServer> results = new ArrayList<>();
 		
 		try {
-			results = m_service.getServers(serverId, null);
+			results = m_service.getServers(serverId, endpoint);
 		} catch (Exception e) {
 			LOGGER.log(Level.SEVERE, "getServers, exception while querying the service.", e);
 		}
@@ -98,13 +99,14 @@ public class OPCUAServerController {
 	 */
 	@RequestMapping(method = RequestMethod.DELETE, value = "{serverId}")
 	public @ResponseBody ResponseEntity<?> deleteServers(
-			@PathVariable Integer serverId
+			@PathVariable Integer serverId,
+			@RequestParam(value = "endpoint", required = false) String endpoint
 	) {
-		LOGGER.log(Level.INFO, "deleteServers, serverId: {0}", serverId);
+		LOGGER.log(Level.INFO, "deleteServers, serverId: {0}, endpoint: " + endpoint, serverId);
 		ResponseEntity<String> result = new ResponseEntity<>(HttpStatus.OK);
 		
 		try {
-			m_service.deleteServers(serverId, null);
+			m_service.deleteServers(serverId, endpoint);
 		} catch (Exception e) {
 			LOGGER.log(Level.SEVERE, "deleteServers, exception while querying the service.", e);
 			result = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

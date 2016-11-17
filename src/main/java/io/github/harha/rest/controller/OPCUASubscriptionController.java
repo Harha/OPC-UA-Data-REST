@@ -55,6 +55,8 @@ public class OPCUASubscriptionController {
 	/*
 	 * Returns a list of subscriptions from the database.
 	 * @param	nsIndex	Query by subscription nsIndex
+	 * @param	identifier	Query by subscription identifier
+	 * @param	serverId	Query by subscription serverId
 	 */
 	@RequestMapping(method = RequestMethod.GET, value = "{nsIndex}")
 	public @ResponseBody List<OPCUASubscription> getSubscriptions(
@@ -94,7 +96,7 @@ public class OPCUASubscriptionController {
 	
 	/*
 	 * Inserts a single subscription into the database.
-	 * @param	variable	Object input instance
+	 * @param	subscription	Object input instance
 	 */
 	@RequestMapping(method = RequestMethod.POST, consumes = "application/json")
 	public @ResponseBody ResponseEntity<?> insertSubscription(
@@ -115,7 +117,7 @@ public class OPCUASubscriptionController {
 	
 	/*
 	 * Updates a single subscription in the database.
-	 * @param	variable	Object input instance
+	 * @param	subscription	Object input instance
 	 */
 	@RequestMapping(method = RequestMethod.PUT, consumes = "application/json")
 	public @ResponseBody ResponseEntity<?> updateSubscription(
