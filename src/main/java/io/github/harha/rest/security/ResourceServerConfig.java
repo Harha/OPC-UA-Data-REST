@@ -1,4 +1,4 @@
-package io.github.harha.rest.security;
+/*package io.github.harha.rest.security;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
@@ -8,4 +8,4 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
 @EnableResourceServer
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
-}
+}*/
