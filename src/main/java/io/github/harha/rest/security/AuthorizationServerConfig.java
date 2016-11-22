@@ -1,4 +1,4 @@
-package io.github.harha.rest.security;
+/*package io.github.harha.rest.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -40,4 +40,4 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 			.autoApprove(true);
 	}
 
-}
+}*/
