@@ -47,5 +47,35 @@ Models
 	* localTimeStamp, DateTime (ISO 8601)
 4. UserAccount:
 	* username, string, unique
-	* password, string
+	* password, string, encrypted with BCrypt
 	* roles, list of string (ADMIN, USER)
+
+As a systemd service
+--------------------
+Install the software to the ExecStart path described in this systemd configuration file and save this configuration file to "/etc/systemd/system/opcuadatarest.service". Obviously edit the file paths to whatever you prefer.
+
+```
+# OPC UA Data REST Service
+# a Systemd service file for Linux.
+
+[Unit]
+Description=opc_ua_data_rest
+After=syslog.target
+
+[Service]
+User=opc_ua_data_rest
+ExecStart=/var/opc_ua_data_rest/opc_ua_data_rest-1.0.0.jar
+SuccessExitStatus=143
+
+[Install]
+WantedBy=multi-user.target
+```
+
+After the installation is done, you can execute the service using systemd.
+
+```
+sudo systemctl start opcuadatarest.service
+sudo systemctl stop opcuadatarest.service
+sudo systemctl enable opcuadatarest.service
+sudo systemctl status opcuadatarest.service
+```

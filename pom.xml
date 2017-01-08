@@ -4,7 +4,7 @@
 
 	<groupId>io.github.harha</groupId>
 	<artifactId>opc_ua_data_rest</artifactId>
-	<version>0.0.4</version>
+	<version>1.0.0</version>
 
 	<developers>
 		<developer>
@@ -20,6 +20,7 @@
 
 	<properties>
 		<java.version>1.8</java.version>
+		<mongodb.version>3.4.1</mongodb.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 

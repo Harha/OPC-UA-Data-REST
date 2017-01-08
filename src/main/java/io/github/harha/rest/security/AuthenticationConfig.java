@@ -10,35 +10,39 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import io.github.harha.rest.api.UserAccountRepository;
 import io.github.harha.rest.model.UserAccount;
 
 @Configuration
 public class AuthenticationConfig extends GlobalAuthenticationConfigurerAdapter {
-	
+
+	public static BCryptPasswordEncoder BCRYPT = new BCryptPasswordEncoder();
+
 	@Autowired
 	private UserAccountRepository m_repository;
-	
+
 	@Override
 	public void init(AuthenticationManagerBuilder builder) throws Exception {
-		builder.userDetailsService(m_service());
+		builder.userDetailsService(getUserDetailsService());
 	}
-	
+
 	@Bean
-	public UserDetailsService m_service() {
+	public UserDetailsService getUserDetailsService() {
 		return new UserDetailsService() {
 
 			@Override
 			public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 				UserAccount account = m_repository.findByUsername(username);
-				
+
 				if (account == null)
 					throw new UsernameNotFoundException("Could not find the user '" + username + "'.");
-				
-				return new User(account.getUsername(), account.getPassword(), true, true, true, true, AuthorityUtils.createAuthorityList(account.getRoles().toArray(new String[0])));
+
+				return new User(account.getUsername(), account.getPassword(), true, true, true, true,
+						AuthorityUtils.createAuthorityList(account.getRoles().toArray(new String[0])));
 			}
-			
+
 		};
 	}
 
