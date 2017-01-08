@@ -35,10 +35,12 @@ public class OPCUAVariable {
 	public String value;
 	
 	@DateTimeFormat(iso = ISO.DATE_TIME)
+	@Indexed(unique = true)
 	@Field("serverTimeStamp")
 	public DateTime serverTimeStamp;
 	
 	@DateTimeFormat(iso = ISO.DATE_TIME)
+	@Indexed(unique = false)
 	@Field("localTimeStamp")
 	public DateTime localTimeStamp;
 	
